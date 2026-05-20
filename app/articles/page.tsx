@@ -1,216 +1,12 @@
 
-// export const dynamic = "force-dynamic";
-// import { prisma } from "@/lib/prisma";
-// import type { Prisma } from "@prisma/client";
-// import Image from "next/image";
-// import Link from "next/link";
-// import { auth } from "@clerk/nextjs/server";
-// import Navbar from "../components/articles/navbar";
-// import LikeButton from "../components/articles/like-button";
 
-// import {
-//   Card,
-//   CardContent,
-//   CardHeader,
-//   CardTitle,
-// } from "@/components/ui/card";
 
-// import { Button } from "@/components/ui/button";
-// import { ArrowRight, MessageCircle } from "lucide-react";
 
-// type Props = {
-//   searchParams?: {
-//     search?: string;
-//     page?: string;
-//   };
-// };
-
-// export default async function ArticlesPage({ searchParams }: Props) {
-//   const search = searchParams?.search;
-//   const page = searchParams?.page;
-
-//   const { userId } = await auth();
-
-//   const ITEMS_PER_PAGE = 2;
-//   const currentPage = Number(page || 1);
-//   const skip = (currentPage - 1) * ITEMS_PER_PAGE;
-
-//   const whereClause: Prisma.ArticleWhereInput | undefined = search
-//     ? {
-//         OR: [
-//           { title: { contains: search, mode: "insensitive" } },
-//           { category: { contains: search, mode: "insensitive" } },
-//         ],
-//       }
-//     : undefined;
-
-//   const [articles, totalArticles] = await Promise.all([
-//     prisma.article.findMany({
-//       where: whereClause,
-//       take: ITEMS_PER_PAGE,
-//       skip,
-//       orderBy: { createdAt: "desc" },
-//       include: {
-//         author: { select: { name: true } },
-//         comments: { include: { user: { select: { name: true } } } },
-//         likes: { include: { user: { select: { clerkUserId: true } } } },
-//         _count: { select: { comments: true, likes: true } },
-//       },
-//     }),
-//     prisma.article.count({ where: whereClause }),
-//   ]);
-
-//   const totalPages = Math.ceil(totalArticles / ITEMS_PER_PAGE);
-
-//   return (
-//     <main className="min-h-screen bg-slate-50 dark:bg-slate-950">
-//       <Navbar />
-
-//       {/* EMPTY STATE */}
-//       {articles.length === 0 ? (
-//         <div className="flex flex-col items-center justify-center p-20 text-center">
-//           <h2 className="text-2xl font-bold">No articles found</h2>
-//           <p className="text-muted-foreground mt-2 mb-6">
-//             {search
-//               ? `No results for "${search}"`
-//               : "No articles available."}
-//           </p>
-
-//           {search && (
-//             <Button asChild>
-//               <Link href="/articles">Clear Search</Link>
-//             </Button>
-//           )}
-//         </div>
-//       ) : (
-//         /* GRID */
-//         <div className="grid gap-6 p-6 sm:grid-cols-2 lg:grid-cols-3">
-//           {articles.map((article) => (
-//             <Card
-//               key={article.id}
-//               className="flex flex-col overflow-hidden rounded-2xl shadow-sm hover:shadow-md transition"
-//             >
-//               {/* IMAGE */}
-//               {article.image && (
-//                 <div className="relative h-52 w-full">
-//                   <Image
-//                     src={article.image}
-//                     alt={article.title}
-//                     fill
-//                     className="object-cover"
-//                   />
-//                 </div>
-//               )}
-
-//               {/* CONTENT */}
-//               <CardHeader>
-//                 <CardTitle className="line-clamp-2 text-lg font-semibold">
-//                   {article.title}
-//                 </CardTitle>
-//               </CardHeader>
-
-//               <CardContent className="flex flex-col flex-1 gap-3">
-//                 <div className="text-xs text-muted-foreground space-y-1">
-//                   <p>{article.category}</p>
-//                   <p>{new Date(article.createdAt).toDateString()}</p>
-//                   <p>{article.author.name}</p>
-//                 </div>
-
-//                 <div
-//                   className="line-clamp-3 text-sm text-muted-foreground"
-//                   dangerouslySetInnerHTML={{ __html: article.content }}
-//                 />
-
-//                 <div className="mt-auto space-y-3">
-//                   <Button asChild className="w-full">
-//                     <Link
-//                       href={`/articles/${article.id}`}
-//                       className="flex items-center justify-center gap-2"
-//                     >
-//                       Read More <ArrowRight size={16} />
-//                     </Link>
-//                   </Button>
-
-//                   {/* STATS */}
-//                   <div className="flex items-center justify-between text-sm text-muted-foreground">
-//                     <LikeButton
-//                       articleId={article.id}
-//                       initialLikeCount={article._count.likes}
-//                       initialIsLiked={
-//                         userId
-//                           ? article.likes.some(
-//                               (l) => l.user.clerkUserId === userId
-//                             )
-//                           : false
-//                       }
-//                     />
-
-//                     <Link
-//                       href={`/articles/${article.id}`}
-//                       className="flex items-center gap-1"
-//                     >
-//                       <MessageCircle size={16} />
-//                       {article._count.comments}
-//                     </Link>
-//                   </div>
-//                 </div>
-//               </CardContent>
-//             </Card>
-//           ))}
-//         </div>
-//       )}
-
-//       {/* PAGINATION */}
-//       {totalPages > 1 && (
-//         <div className="flex items-center justify-center gap-4 py-8">
-//           <Button
-//             variant="outline"
-//             disabled={currentPage <= 1}
-//             asChild={currentPage > 1}
-//           >
-//             {currentPage > 1 ? (
-//               <Link
-//                 href={`/articles?search=${search ?? ""}&page=${
-//                   currentPage - 1
-//                 }`}
-//               >
-//                 Previous
-//               </Link>
-//             ) : (
-//               "Previous"
-//             )}
-//           </Button>
-
-//           <p className="text-sm text-muted-foreground">
-//             Page {currentPage} of {totalPages}
-//           </p>
-
-//           <Button
-//             variant="outline"
-//             disabled={currentPage >= totalPages}
-//             asChild={currentPage < totalPages}
-//           >
-//             {currentPage < totalPages ? (
-//               <Link
-//                 href={`/articles?search=${search ?? ""}&page=${
-//                   currentPage + 1
-//                 }`}
-//               >
-//                 Next
-//               </Link>
-//             ) : (
-//               "Next"
-//             )}
-//           </Button>
-//         </div>
-//       )}
-//     </main>
-//   );
-
+export const dynamic = "force-dynamic";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { prisma } from "@/lib/prisma";
-import type{ Prisma } from "@prisma/client";
-import React from "react";
+import { Prisma } from "@prisma/client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -219,19 +15,19 @@ import Navbar from "../components/articles/navbar";
 import LikeButton from "../components/articles/like-button";
 import { auth } from "@clerk/nextjs/server";
 
-// const ArticlesPage = async ({
+// const ArticlesPage = async ({ ----------------------------------
 //   searchParams,
 // }: {
 //   searchParams: Promise<{ search?: string; page?: string }>;
 // }) => {
 //   const { search, page } = await searchParams;
-//   const { userId } = await auth();
+//   const { userId } = await auth();----------------------------
 const ArticlesPage = async ({
   searchParams,
 }: {
   searchParams: { search?: string; page?: string };
 }) => {
-  const { search, page } = await searchParams;
+  const { search, page } =  await searchParams;
 
   const { userId } = await auth();
   const ITEMS_PER_PAGE = 6;
