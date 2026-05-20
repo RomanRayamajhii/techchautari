@@ -12,7 +12,8 @@ import { ArrowRight, MessageCircle } from "lucide-react";
 import Navbar from "../components/articles/navbar";
 import LikeButton from "../components/articles/like-button";
 import { auth } from "@clerk/nextjs/server";
-import { Prisma } from "@prisma/client";
+import type { Prisma } from "@prisma/client";
+
 
 // const ArticlesPage = async ({ ----------------------------------
 //   searchParams,
