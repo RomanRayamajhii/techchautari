@@ -1,7 +1,7 @@
 export const dynamic = "force-dynamic";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { prisma } from "@/lib/prisma";
-import { Prisma } from "@prisma/client";
+import type{ Prisma } from "@prisma/client";
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
