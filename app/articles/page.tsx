@@ -1,11 +1,9 @@
 
 
-
-
 export const dynamic = "force-dynamic";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { prisma } from "@/lib/prisma";
-import { Prisma } from "@prisma/client";
+
 
 import Image from "next/image";
 import Link from "next/link";
@@ -14,6 +12,7 @@ import { ArrowRight, MessageCircle } from "lucide-react";
 import Navbar from "../components/articles/navbar";
 import LikeButton from "../components/articles/like-button";
 import { auth } from "@clerk/nextjs/server";
+import { Prisma } from "@prisma/client";
 
 // const ArticlesPage = async ({ ----------------------------------
 //   searchParams,
