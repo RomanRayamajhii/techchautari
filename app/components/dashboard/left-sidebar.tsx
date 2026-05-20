@@ -13,16 +13,9 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { FilePlus, LayoutDashboard, LayoutDashboardIcon } from "lucide-react";
-import {
-  FileText,
-  MessageCircle,
-  Users,
-  BarChart,
-  Settings,
-} from "lucide-react";
+import { FileText, Users, BarChart, Settings } from "lucide-react";
 import Link from "next/link";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
-import { UserButton } from "@clerk/nextjs";
 
 export default function LeftSidebar() {
   return (
@@ -128,27 +121,34 @@ const LayoutSideBar = () => {
           </Link>
         </Button>
       ))}
-       <div className="space-y-5">
-          <Button
+      <div className="space-y-5">
+        <Button
           asChild
           variant="ghost"
           className=" w-full hover:bg-blue-50 dark:hover:bg-blue-950  hover:text-blue-700 font-semibold"
         >
-          <Link href="/user-profile" className="flex items-center gap-2 justify-start">
-            <Users className="w-5 h-5"/>User
+          <Link
+            href="/user-profile"
+            className="flex items-center gap-2 justify-start"
+          >
+            <Users className="w-5 h-5" />
+            User
           </Link>
         </Button>
-             <Button
+        <Button
           asChild
           variant="ghost"
           className=" w-full hover:bg-blue-50 dark:hover:bg-blue-950  hover:text-blue-700 font-semibold"
         >
-          <Link href="/user-profile" className="flex items-center gap-2 justify-start">
-            <Settings className="w-5 h-5"/>Settings
+          <Link
+            href="/user-profile"
+            className="flex items-center gap-2 justify-start"
+          >
+            <Settings className="w-5 h-5" />
+            Settings
           </Link>
         </Button>
-  
-</div>
+      </div>
     </nav>
   );
 };

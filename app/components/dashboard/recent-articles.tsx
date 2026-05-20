@@ -24,7 +24,6 @@ import {
   TableRow
 } from "@/components/ui/table";
 
-import { Prisma } from "@prisma/client";
 import { ArrowRight, Delete, Pencil } from "lucide-react";
 import Link from "next/link";
 import React, { startTransition, useOptimistic } from "react";

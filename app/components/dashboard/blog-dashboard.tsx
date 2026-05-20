@@ -9,15 +9,9 @@ import { dashboardTable } from "@/app/action/dashboard-table";
 const BlogDashboard = async () => {
   const articles = await dashboardTable();
 
-  const totalComments = articles.reduce(
-    (sum, a) => sum + a._count.comments,
-    0
-  );
+  const totalComments = articles.reduce((sum, a) => sum + a._count.comments, 0);
 
-  const totalLikes = articles.reduce(
-    (sum, a) => sum + a._count.likes,
-    0
-  );
+  const totalLikes = articles.reduce((sum, a) => sum + a._count.likes, 0);
 
   return (
     <main className="flex-1">
@@ -25,9 +19,7 @@ const BlogDashboard = async () => {
       <div className="flex justify-between items-center mb-8">
         <div>
           <h1 className="font-bold text-2xl">Blog Dashboard</h1>
-          <p className="text-muted-foreground">
-            Manage your blogs and profile
-          </p>
+          <p className="text-muted-foreground">Manage your blogs and profile</p>
         </div>
 
         <Button className="bg-blue-600 hover:bg-blue-700 text-white h-10 px-3">
@@ -42,7 +34,6 @@ const BlogDashboard = async () => {
 
       {/* STATS */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-
         <Card className="shadow-sm">
           <CardHeader className="flex flex-row items-center justify-between">
             <CardTitle>Total Articles</CardTitle>
@@ -72,7 +63,6 @@ const BlogDashboard = async () => {
             {totalLikes} Like
           </CardContent>
         </Card>
-
       </div>
 
       {/* RECENT ARTICLES */}

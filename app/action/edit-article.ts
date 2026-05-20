@@ -30,7 +30,7 @@ export type EditArticleFormState = {
 };
 
 export const EditArticle = async (
-  prevState:EditArticleFormState,
+  prevState: EditArticleFormState,
   formData: FormData,
 ): Promise<EditArticleFormState> => {
   const validateData = EditArticlesSchema.safeParse({
@@ -66,34 +66,34 @@ export const EditArticle = async (
       },
     };
   }
-let imageUrl: string | undefined;
+  let imageUrl: string | undefined;
 
-const imageFile = formData.get("image") as File | null;
+  const imageFile = formData.get("image") as File | null;
 
-if (imageFile && imageFile.size > 0) {
-  const arrayBuffer = await imageFile.arrayBuffer();
-  const buffer = Buffer.from(arrayBuffer);
+  if (imageFile && imageFile.size > 0) {
+    const arrayBuffer = await imageFile.arrayBuffer();
+    const buffer = Buffer.from(arrayBuffer);
 
-  const uploadResponse = await new Promise<UploadApiResponse>(
-    (resolve, reject) => {
-      const uploadStream = cloudinary.uploader.upload_stream(
-        {
-          folder: "articles",
-          use_filename: true,
-          unique_filename: true,
-        },
-        (error, result) => {
-          if (error) return reject(error);
-          resolve(result!);
-        }
-      );
+    const uploadResponse = await new Promise<UploadApiResponse>(
+      (resolve, reject) => {
+        const uploadStream = cloudinary.uploader.upload_stream(
+          {
+            folder: "articles",
+            use_filename: true,
+            unique_filename: true,
+          },
+          (error, result) => {
+            if (error) return reject(error);
+            resolve(result!);
+          },
+        );
 
-      uploadStream.end(buffer);
-    }
-  );
+        uploadStream.end(buffer);
+      },
+    );
 
-  imageUrl = uploadResponse.secure_url;
-}
+    imageUrl = uploadResponse.secure_url;
+  }
 
   try {
     // insert gardaii garako

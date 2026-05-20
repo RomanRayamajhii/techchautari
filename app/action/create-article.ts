@@ -155,9 +155,7 @@ export const getArticleWithComment = async () => {
             imageUrl: true,
           },
         },
-
       },
-      
     }),
     prisma.comment.count(),
   ]);

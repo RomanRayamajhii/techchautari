@@ -1,14 +1,11 @@
-import CreateArticlesPage from '@/app/components/articles/create-articles-page'
-
+import CreateArticlesPage from "@/app/components/articles/create-articles-page";
 
 const CreateArticles = () => {
   return (
-    <div className=' mx-auto w-full'>
-        <CreateArticlesPage/>
-
-      
+    <div className=" mx-auto w-full">
+      <CreateArticlesPage />
     </div>
-  )
-}
+  );
+};
 
-export default CreateArticles
+export default CreateArticles;

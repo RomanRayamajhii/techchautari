@@ -1,11 +1,6 @@
 "use client";
 
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 import {
   BarChart,
@@ -15,6 +10,7 @@ import {
   Tooltip,
   ResponsiveContainer,
   CartesianGrid,
+  Legend,
 } from "recharts";
 
 type Article = {
@@ -39,68 +35,89 @@ export default function AnalyticsClient({
   totalComments,
 }: Props) {
   const data = articles.map((a) => ({
-    name: a.title.slice(0, 12),
+    name: a.title.length > 15 ? a.title.slice(0, 15) + "…" : a.title,
     likes: a._count.likes,
     comments: a._count.comments,
   }));
 
   return (
-    <div className="p-6 space-y-8 bg-gradient-to-br from-slate-50 to-slate-100 min-h-screen">
-
+    <div className="p-4 sm:p-6 lg:p-8 space-y-8 bg-slate-50 min-h-screen w-full">
       {/* HEADER */}
-      <div>
-        <h1 className="text-2xl font-bold">Analytics Dashboard</h1>
+      <div className="space-y-1">
+        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">
+          Analytics Dashboard
+        </h1>
         <p className="text-sm text-muted-foreground">
-          Track your article performance
+          Track article performance and engagement in real time
         </p>
       </div>
 
       {/* KPI CARDS */}
-      <div className="grid gap-6 md:grid-cols-3">
-
-        <Card className="rounded-2xl shadow-sm">
-          <CardHeader>
-            <CardTitle>Total Articles</CardTitle>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <Card className="h-[130px] rounded-2xl border shadow-sm flex flex-col justify-between">
+          <CardHeader className="pb-0">
+            <CardTitle className="text-sm text-muted-foreground">
+              Total Articles
+            </CardTitle>
           </CardHeader>
-          <CardContent className="text-3xl font-bold">
+          <CardContent className="text-3xl sm:text-4xl font-bold">
             {articles.length}
           </CardContent>
         </Card>
 
-        <Card className="rounded-2xl shadow-sm">
-          <CardHeader>
-            <CardTitle>Total Likes</CardTitle>
+        <Card className="h-[130px] rounded-2xl border shadow-sm flex flex-col justify-between">
+          <CardHeader className="pb-0">
+            <CardTitle className="text-sm text-muted-foreground">
+              Total Likes
+            </CardTitle>
           </CardHeader>
-          <CardContent className="text-3xl font-bold text-pink-500">
+          <CardContent className="text-3xl sm:text-4xl font-bold text-pink-500">
             {totalLikes}
           </CardContent>
         </Card>
 
-        <Card className="rounded-2xl shadow-sm">
-          <CardHeader>
-            <CardTitle>Total Comments</CardTitle>
+        <Card className="h-[130px] rounded-2xl border shadow-sm flex flex-col justify-between">
+          <CardHeader className="pb-0">
+            <CardTitle className="text-sm text-muted-foreground">
+              Total Comments
+            </CardTitle>
           </CardHeader>
-          <CardContent className="text-3xl font-bold text-green-600">
+          <CardContent className="text-3xl sm:text-4xl font-bold text-green-600">
             {totalComments}
           </CardContent>
         </Card>
       </div>
 
       {/* CHART */}
-      <Card className="rounded-2xl shadow-sm">
+      <Card className="rounded-2xl border shadow-sm">
         <CardHeader>
-          <CardTitle>Engagement Per Article</CardTitle>
+          <CardTitle className="text-base sm:text-lg">
+            Engagement Per Article
+          </CardTitle>
         </CardHeader>
 
-        <CardContent>
-          <div className="h-[380px]">
+        <CardContent className="p-3 sm:p-6">
+          {/* ✅ FIXED RESPONSIVE CHART CONTAINER */}
+          <div className="w-full h-[300px] sm:h-[380px] lg:h-[420px]">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={data}>
-                <CartesianGrid strokeDasharray="3 3" opacity={0.2} />
-                <XAxis dataKey="name" />
+                <CartesianGrid strokeDasharray="3 3" opacity={0.15} />
+
+                <XAxis dataKey="name" tick={{ fontSize: 11 }} interval={0} />
+
                 <YAxis />
-                <Tooltip />
+
+                <Tooltip
+                  contentStyle={{
+                    borderRadius: "10px",
+                    border: "none",
+                  }}
+                />
+
+                <Legend />
+
                 <Bar dataKey="likes" fill="#3b82f6" radius={[6, 6, 0, 0]} />
+
                 <Bar dataKey="comments" fill="#10b981" radius={[6, 6, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
