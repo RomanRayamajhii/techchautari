@@ -1,5 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { prisma } from '@/lib/prisma';
+import { Prisma } from '@prisma/client';
 import React from 'react'
 import Image from 'next/image';
 import Link from 'next/link';
@@ -21,11 +22,11 @@ const ArticlesPage = async({
   const currentPage = parseInt(page || "1", 10) || 1;
   const skip = (currentPage - 1) * ITEMS_PER_PAGE;
 
-  const whereClause = search
+  const whereClause: Prisma.ArticleWhereInput | undefined = search
     ? {
         OR: [
-          { title: { contains: search, mode: "insensitive" as const } },
-          { category: { contains: search, mode: "insensitive" as const } },
+          { title: { contains: search, mode: "insensitive" } },
+          { category: { contains: search, mode: "insensitive" } },
         ],
       }
     : undefined;
