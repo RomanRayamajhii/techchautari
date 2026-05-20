@@ -55,7 +55,8 @@ const ArticlePage = async({params}:{params:Promise<{id:string}>}) => {
         <CardContent className='space-y-4'>
           <div>
              {article.image && (
-             <Image src={article.image} alt={article.title} width={100} height={100} className='w-full h-64 object-cover mb-5 rounded-md' />
+             <Image src={article.image} alt={article.title} width={100} height={100} className='w-full h-64 object-cover mb-5 rounded-md' 
+             loading="eager"/>
           )}
           </div>
 

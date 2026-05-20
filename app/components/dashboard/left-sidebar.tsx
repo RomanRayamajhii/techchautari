@@ -22,6 +22,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
+import { UserButton } from "@clerk/nextjs";
 
 export default function LeftSidebar() {
   return (
@@ -69,32 +70,32 @@ const navLinks = [
     label: "My Articles",
     icon: FileText,
   },
-   {
+  {
     href: "/dashboard/articles/create-articles",
     label: "Create Article",
     icon: FilePlus,
   },
-  {
-    href: "/comments",
-    label: "Comments",
-    icon: MessageCircle,
-  },
+  // {
+  //   href: "/comments",
+  //   label: "Comments",
+  //   icon: MessageCircle,
+  // },
 
-  {
-    href: "/users",
-    label: "Users",
-    icon: Users,
-  },
+  // {
+  //   href: "/users",
+  //   label: "Users",
+  //   icon: Users,
+  // },
   {
     href: "/dashboard/analytics",
     label: "Analytics",
     icon: BarChart,
   },
-  {
-    href: "/settings",
-    label: "Settings",
-    icon: Settings,
-  },
+  // {
+  //   href: "/settings",
+  //   label: "Settings",
+  //   icon: Settings,
+  // },
 ];
 
 const LayoutSideBar = () => {
@@ -120,7 +121,6 @@ const LayoutSideBar = () => {
           asChild
           variant="ghost"
           className=" w-full hover:bg-blue-50 dark:hover:bg-blue-950  hover:text-blue-700 font-semibold"
-          
         >
           <Link href={link.href} className="justify-start gap-2">
             {" "}
@@ -128,6 +128,27 @@ const LayoutSideBar = () => {
           </Link>
         </Button>
       ))}
+       <div className="space-y-5">
+          <Button
+          asChild
+          variant="ghost"
+          className=" w-full hover:bg-blue-50 dark:hover:bg-blue-950  hover:text-blue-700 font-semibold"
+        >
+          <Link href="/user-profile" className="flex items-center gap-2 justify-start">
+            <Users className="w-5 h-5"/>User
+          </Link>
+        </Button>
+             <Button
+          asChild
+          variant="ghost"
+          className=" w-full hover:bg-blue-50 dark:hover:bg-blue-950  hover:text-blue-700 font-semibold"
+        >
+          <Link href="/user-profile" className="flex items-center gap-2 justify-start">
+            <Settings className="w-5 h-5"/>Settings
+          </Link>
+        </Button>
+  
+</div>
     </nav>
   );
 };

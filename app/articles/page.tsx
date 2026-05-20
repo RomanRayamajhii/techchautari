@@ -112,6 +112,7 @@ const ArticlesPage = async({
                       alt={article.title}
                       fill
                       className="object-cover"
+                      loading="eager"
                     />
                   )}
                 </div>

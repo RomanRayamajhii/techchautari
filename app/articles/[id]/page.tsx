@@ -58,6 +58,7 @@ const ArticlePage = async ({ params }: { params: Promise<{ id: string }> }) => {
             width={1000}
             height={560}
             className='h-80 w-full rounded-t-xl object-cover'
+            loading="eager"
             priority
           />
         )}
