@@ -1,10 +1,9 @@
 import { AllArticlePageSkeleton } from "../components/articles/all-article-skeleton";
-import Navbar from "../components/articles/navbar";
 
+    
 const Loading = () => {
   return (
-    <main>
-      <Navbar />
+    <main className="mx-auto max-w-7xl p-4 md:p-6">
       <AllArticlePageSkeleton />
     </main>
   );

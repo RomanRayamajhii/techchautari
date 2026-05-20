@@ -6,19 +6,13 @@ import { prisma } from "@/lib/prisma";
 export const dashboardTable = async () => {
   const user = await currentUser();
 
-  if (!user) {
-    return [];
-  }
+  if (!user) return [];
 
   const loggedInUser = await prisma.user.findUnique({
-    where: {
-      clerkUserId: user.id,
-    },
+    where: { clerkUserId: user.id },
   });
 
-  if (!loggedInUser) {
-    return [];
-  }
+  if (!loggedInUser) return [];
 
   return prisma.article.findMany({
     where: {
@@ -27,13 +21,14 @@ export const dashboardTable = async () => {
     orderBy: {
       createdAt: "desc",
     },
-    include: {
-      comments: true,
-      author: {
+    select: {
+      id: true,
+      title: true,
+      createdAt: true,
+      _count: {
         select: {
-          name: true,
-          email: true,
-          imageUrl: true,
+          likes: true,
+          comments: true,
         },
       },
     },

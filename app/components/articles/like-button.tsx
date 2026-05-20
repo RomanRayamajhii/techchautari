@@ -52,7 +52,7 @@ const LikeButton = ({
       onClick={handleLike}
       disabled={isPending}
       aria-pressed={liked}
-      className="flex items-center gap-2 text-muted-foreground mt-2"
+      className="flex items-center gap-2 text-muted-foreground hover:text-red-600"
     >
       <Heart
         className={cn(

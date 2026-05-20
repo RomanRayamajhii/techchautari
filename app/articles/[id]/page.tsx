@@ -7,8 +7,6 @@ import { MessageCircle } from 'lucide-react'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
 import { isLiked } from '@/app/action/like'
-import { Suspense } from 'react'
-import { AllArticlePageSkeleton } from '@/app/components/articles/all-article-skeleton'
 
 const ArticlePage = async ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = await params;
@@ -51,7 +49,7 @@ const ArticlePage = async ({ params }: { params: Promise<{ id: string }> }) => {
 
   return (
     <main className='mx-auto max-w-4xl p-6'>
-      <Suspense fallback={<AllArticlePageSkeleton />}/>
+      {/* <Suspense fallback={<AllArticlePageSkeleton />}/> */}
       <Card>
         {article.image && (
           <Image
@@ -79,16 +77,16 @@ const ArticlePage = async ({ params }: { params: Promise<{ id: string }> }) => {
           />
         </CardContent>
       </Card>
-      <div className='flex items-center gap-2'>
-  <LikeButton
-    articleId={article.id}
-    initialLikeCount={article._count.likes}
-    initialIsLiked={liked}
-  />
-  <div className="flex items-center gap-2 mt-2 text-muted-foreground">
-                <MessageCircle size={20}  />
-                <p>{article.comments.length}</p>
-              </div>
+      <div className='flex items-center gap-6 mt-4 px-2'>
+        <LikeButton
+          articleId={article.id}
+          initialLikeCount={article._count.likes}
+          initialIsLiked={liked}
+        />
+        <div className="flex items-center gap-2 text-muted-foreground">
+          <MessageCircle size={20}  />
+          <p>{article.comments.length}</p>
+        </div>
       </div>
     
 

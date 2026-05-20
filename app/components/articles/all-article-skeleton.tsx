@@ -4,7 +4,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 export const AllArticlePageSkeleton = () => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
-      {Array.from({ length: 6 }).map((_, i) => (
+      {Array.from({ length: 4 }).map((_, i) => (
         <Card
           key={i}
           className="overflow-hidden flex flex-col border border-gray-200 dark:border-gray-800"

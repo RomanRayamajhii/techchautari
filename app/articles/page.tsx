@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { prisma } from '@/lib/prisma';
 import { Prisma } from '@prisma/client';
@@ -167,7 +168,7 @@ const ArticlesPage = async({
                         />
                       </div>
 
-                      <div className="flex items-center gap-2 mt-2 text-muted-foreground">
+                      <div className="flex items-center gap-2 text-muted-foreground">
                         <Link href={`/articles/${article.id}`} className="flex gap-2">
                           <MessageCircle size={18} />
                           <p>{article._count.comments}</p>
@@ -233,4 +234,3 @@ const ArticlesPage = async({
 }
 
 export default ArticlesPage
-

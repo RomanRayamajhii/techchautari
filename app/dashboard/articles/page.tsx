@@ -5,7 +5,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Delete, Pencil, Trash } from "lucide-react";
 
 const MyArticle = async () => {
   const user = await currentUser();
@@ -94,12 +94,12 @@ const MyArticle = async () => {
            <div className="flex justify-between">
                 <div className="flex gap-2 mt-auto">
                   <Link href={`/dashboard/articles/${article.id}/edit-article`}>
-                    <Button variant="default" className="px-4 cursor-pointer">
-                      Edit
+                    <Button variant="default" className="px-4 cursor-pointer bg-blue-500 text-white hover:bg-blue-700 hover:text-white">
+                    <Pencil />  Edit
                     </Button>
                   </Link>
-                  <Button variant="destructive" className="px-4 cursor-pointer">
-                    Delete
+                  <Button variant="destructive" className="px-4 cursor-pointer bg-red-600 text-white hover:bg-red-700 hover:text-white">
+                  <Delete/>   Delete
                   </Button>
                 </div>
 
